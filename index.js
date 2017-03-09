@@ -42,6 +42,9 @@ nlb.prototype.GetTitleDetails = function (params){
 	*/
 	if(typeof params.BID === "undefined"){params.BID = ""}
 	if(typeof params.ISBN === "undefined"){params.ISBN = ""}
+	if(typeof params.BID === "undefined" && typeof params.ISBN === "undefined"){
+		throw "Error: Must define either BID or ISBN for GetTitleDetails"
+	}
 	return new Promise((resolve, reject) => {
 		let searchArgs = {
 		  GetTitleDetailsRequest: {
@@ -64,16 +67,36 @@ nlb.prototype.GetTitleDetails = function (params){
 	});
 }
 
+nlb.prototype.GetAvailabilityInfo = function (params){
+	/*
+		params.BID OR params.ISBN
+	*/
+	if(typeof params.BID === "undefined"){params.BID = ""}
+	if(typeof params.ISBN === "undefined"){params.ISBN = ""}
+	if(typeof params.BID === "undefined" && typeof params.ISBN === "undefined"){
+		throw "Error: Must define either BID or ISBN for GetAvailabilityInfo"
+	}
+	return new Promise((resolve, reject) => {
+		let searchArgs = {
+		  GetAvailabilityInfoRequest: {
+		  	APIKey: process.env.NLB_API_KEY,
+		  	BID: params.BID,
+		  	ISBN: params.ISBN,
+		  	Modifiers: {}
+		  }
+		};
+		soap.createClient(url, {}, (err, client) => {
+			client["CatalogueService"]["BasicHttpBinding_ICatalogueService"]["GetAvailabilityInfo"](searchArgs, (err, res) => {
+					if(err){reject(err)}
+					if(res.Status === "OK"){
+						resolve(res.Items.Item)
+					} else {
+						reject(res.ErrorMessage)
+					}
+					
+			})
+		});
+	});
+}
+
 module.exports = new nlb();
-
-let a = new nlb()
-/*
-a.Search({field: "Author", terms: "David Eddings"}).then((res) => {
-	console.log(res)
-})*/
-
-a.GetTitleDetails({ISBN: "0062433652"}).then((res) => {
-	console.log(res)
-}).catch((err) => {
-	console.log(err)
-})
