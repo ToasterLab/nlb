@@ -2,6 +2,78 @@
 
 A Node.js wrapper for the National Library Board of Singapore's WDSL API. Obtain an API key from the [NLB labs website](http://www.nlb.gov.sg/labs/mash-create-collaborate/), and get started.
 
+    npm install --save nlb
+
+
+    const nlb = require("nlb")
+
+    nlb.Search({field: "Author", terms: "David Eddings"}).then((results) => {
+      console.log(results)
+      /*[ { BID: '13199202',
+        ISBN: '9780552554800 (pbk)',
+        TitleName: 'Enchanters\' end game / David Eddings.',
+        Author: 'Eddings, David',
+        PublishYear: '2007',
+        MediaCode: 'BK',
+        MediaDesc: 'Books' }, ...]*/
+    })
+
+    nlb.Search({field: "Title", terms: "The Magicians"}).then((result) => {
+      console.log(result)
+    })
+
+    nlb.GetTitleDetails({ISBN: "0062433652"}).then((res) => {
+      console.log(res)
+      /*{ BID: '201643835',
+          TitleName: 'Go set a watchman / Harper Lee.',
+          Author: 'Lee, Harper,',
+          OtherAuthors: 'Lee, Harper',
+          Publisher: undefined,
+          PhysicalDesc: '341 pages (large rpint) ;23 cm',
+          Subjects:
+           { Subject:
+              [ 'Finch, Scout (Fictitious character) Fiction',
+                'Finch, Atticus (Fictitious character) Fiction',
+                'Fathers and daughters Fiction',
+                'Homecoming Fiction',
+                'Adult children of aging parents Fiction',
+                'Southern States Race relations Fiction',
+                'School integration Southern States Fiction',
+                'Nineteen fifties Fiction',
+                'Social change Fiction',
+                'Race relations Fiction',
+                'Southern States Fiction',
+                'Alabama Fiction',
+                'Political fiction',
+                'Historical fiction',
+                'Domestic fiction',
+                'Novels',
+                'Large type books' ] },
+          Summary: 'Maycomb, Alabama. Twenty-six-year-old Jean Louise Finch -- "Scout" -- returns home from New York City to visit her aging father, Atticus. Set against the backdrop of the civil rights tensions and political turmoil that were transforming the South, Jean Louise\'s homecoming turns bittersweet when she learns disturbing truths about her close-knit family, the town and the people dearest to her. Memories from her childhood flood back, and her values and assumptions are thrown into doubt. Featuring many of the iconic characters from To Kill a Mockingbird, Go Set a Watchman perfectly captures a young woman, and a world, in a painful yet necessary transition out of the illusions of the past -- a journey that can be guided only by one\'s conscience.',
+          Notes: 'Sequel to: To kill a mockingbird.Maycomb, Alabama. Twenty-six-year-old Jean Louise Finch -- "Scout" -- returns home from New York City to visit her aging father, Atticus. Set against the backdrop of the civil rights tensions and political turmoil that were transforming the South, Jean Louise\'s homecoming turns bittersweet when she learns disturbing truths about her close-knit family, the town and the people dearest to her. Memories from her childhood flood back, and her values and assumptions are thrown into doubt. Featuring many of the iconic characters from To Kill a Mockingbird, Go Set a Watchman perfectly captures a young woman, and a world, in a painful yet necessary transition out of the illusions of the past -- a journey that can be guided only by one\'s conscience.',
+          ISBN: '0062433652 ((paperback : large print))', ... */
+    });
+
+    nlb.GetAvailabilityInfo({ISBN: "9789814266727"}).then((res) => {
+      console.log(res);
+      /*[ { ItemNo: 'B22545064F',
+            BranchID: '11LKCRL',
+            BranchName: 'Lee Kong Chian Reference Library Lvl 11',
+            LocationCode: 'RSING',
+            LocationDesc: 'Reference Singapore',
+            CallNumber: 'English RSING 959.5705092 LEE -[HIS]',
+            StatusCode: 'S',
+            StatusDesc: 'For Reference Only',
+            MediaCode: undefined,
+            MediaDesc: 'Book',
+            StatusDate: '04/10/2013',
+            ClusterName: undefined,
+            CategoryName: undefined,
+            CollectionCode: undefined,
+            CollectionMinAgeLimit: undefined }... ] */
+    });
+    
+
 ## Terminology
 
 ### Title Level Media Code and Media Description Mapping
