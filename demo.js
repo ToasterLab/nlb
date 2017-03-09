@@ -1,4 +1,7 @@
+require('dotenv').config();
 const nlb = require("nlb")
+
+nlb.setApiKey(process.env.NLB_API_KEY);
 
 nlb.Search({field: "Author", terms: "David Eddings"}).then((res) => {
 	console.log("===========================================")

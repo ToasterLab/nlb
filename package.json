@@ -1,10 +1,9 @@
 {
   "name": "nlb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "query NLB's WDSL api easily. a wrapper for NLB's CatalogueSearch APIs",
   "main": "index.js",
   "dependencies": {
-    "dotenv": "^4.0.0",
     "strong-soap": "^1.2.0"
   },
 	"repository":"git@github.com:ToasterLab/nlb.git",

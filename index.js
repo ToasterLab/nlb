@@ -1,10 +1,14 @@
-require('dotenv').config(); //process.env.APP_ID APP
+ //process.env.APP_ID APP
 
 const soap = require('strong-soap').soap;
 const url = "http://openweb-stg.nlb.gov.sg/OWS/CatalogueService.svc?wsdl";
+let apiKey = ""
 
 function nlb (){}
 
+nlb.prototype.setApiKey = function(api_key){
+	apiKey = api_key;
+}
 nlb.prototype.Search = function (params){
 	/*
 		params.field = Keywords AND Author AND Subject And Title
@@ -12,7 +16,7 @@ nlb.prototype.Search = function (params){
 	return new Promise((resolve, reject) => {
 		let searchArgs = {
 		  SearchRequest : {
-		  	APIKey: process.env.NLB_API_KEY,
+		  	APIKey: apiKey,
 		  	SearchItems: {
 		  		SearchItem: {
 		  			SearchField: params.field,
@@ -48,7 +52,7 @@ nlb.prototype.GetTitleDetails = function (params){
 	return new Promise((resolve, reject) => {
 		let searchArgs = {
 		  GetTitleDetailsRequest: {
-		  	APIKey: process.env.NLB_API_KEY,
+		  	APIKey: apiKey,
 		  	BID: params.BID,
 		  	ISBN: params.ISBN
 		  }
@@ -79,7 +83,7 @@ nlb.prototype.GetAvailabilityInfo = function (params){
 	return new Promise((resolve, reject) => {
 		let searchArgs = {
 		  GetAvailabilityInfoRequest: {
-		  	APIKey: process.env.NLB_API_KEY,
+		  	APIKey: apiKey,
 		  	BID: params.BID,
 		  	ISBN: params.ISBN,
 		  	Modifiers: {}
