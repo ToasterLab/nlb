@@ -92,8 +92,10 @@ nlb.prototype.GetAvailabilityInfo = function (params){
 		soap.createClient(url, {}, (err, client) => {
 			client["CatalogueService"]["BasicHttpBinding_ICatalogueService"]["GetAvailabilityInfo"](searchArgs, (err, res) => {
 					if(err){reject(err)}
-					if(res.Status === "OK"){
+					if(res.Status === "OK" && "Items" in res && "Item" in res.Items && res.Items.Item){
 						resolve(res.Items.Item)
+					} else if (res.Status === "OK" && !("ErrorMessage" in res)){
+						resolve([])
 					} else {
 						reject(res.ErrorMessage)
 					}

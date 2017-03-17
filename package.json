@@ -1,6 +1,6 @@
 {
   "name": "nlb",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "query NLB's WDSL api easily. a wrapper for NLB's CatalogueSearch APIs",
   "main": "index.js",
   "dependencies": {
