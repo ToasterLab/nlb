@@ -1,18 +1,24 @@
- //process.env.APP_ID APP
-
 const soap = require('strong-soap').soap;
 const url = "http://openweb-stg.nlb.gov.sg/OWS/CatalogueService.svc?wsdl";
 let apiKey = ""
 
 function nlb (){}
 
+/**
+ * @description sets the NLB API key. run before any operations
+ * @param {string} api_key - NLB API key
+ */
 nlb.prototype.setApiKey = function(api_key){
-	apiKey = api_key;
+	apiKey = api_key
 }
+/**
+ * @description search NLB's database. wrapper for CatalogueService.Search
+ * @param {Object} params
+ * @param {String} params.field - Keywords, Author, Title or Subject
+ * @param {string} params.terms
+ * @returns {Promise} containing array of matching books
+ */
 nlb.prototype.Search = function (params){
-	/*
-		params.field = Keywords AND Author AND Subject And Title
-	*/
 	return new Promise((resolve, reject) => {
 		let searchArgs = {
 		  SearchRequest : {
@@ -36,10 +42,17 @@ nlb.prototype.Search = function (params){
 					}
 					
 			})
-		});
-	});
+		})
+	})
 }
 
+/**
+ * @description get more information about a book. wrapper for CatalogueService.GetTitleDetails
+ * @param {Object} params - either .BID or .ISBN must be set
+ * @param {String} BID
+ * @param {String} ISBN
+ * @returns {Promise} containing object with matching book
+ */
 nlb.prototype.GetTitleDetails = function (params){
 	/*
 		params.BID OR params.ISBN
@@ -67,14 +80,17 @@ nlb.prototype.GetTitleDetails = function (params){
 					}
 					
 			})
-		});
-	});
+		})
+	})
 }
 
+/**
+ * @description check if/where a book is available. wrapper for CatalogueService.GetAvailabilityInfo
+ * @param {Object} params - either .BID or .ISBN must be set
+ * @param {String} BID
+ * @param {String} ISBN
+ */
 nlb.prototype.GetAvailabilityInfo = function (params){
-	/*
-		params.BID OR params.ISBN
-	*/
 	if(typeof params.BID === "undefined"){params.BID = ""}
 	if(typeof params.ISBN === "undefined"){params.ISBN = ""}
 	if(typeof params.BID === "undefined" && typeof params.ISBN === "undefined"){

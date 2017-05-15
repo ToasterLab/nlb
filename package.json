@@ -1,8 +1,9 @@
 {
   "name": "nlb",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "query NLB's WDSL api easily. a wrapper for NLB's CatalogueSearch APIs",
   "main": "index.js",
+  "keywords": ["book", "books", "nlb", "Singapore", "library", "WDSL"],
   "dependencies": {
     "strong-soap": "^1.2.0"
   },
