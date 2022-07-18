@@ -1,6 +1,6 @@
 # nlb
 
-A Node.js wrapper for the National Library Board of Singapore's WDSL API. Obtain an API key from the [NLB labs website](http://www.nlb.gov.sg/labs/mash-create-collaborate/), and get started.
+A Node.js wrapper for the National Library Board of Singapore's WDSL API. Obtain an API key from the [NLB labs website](https://www.nlb.gov.sg/main/partner-us/contribute-and-create-with-us/NLBLabs), and get started.
 
     npm install --save nlb
 
